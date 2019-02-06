@@ -11,10 +11,15 @@
 
 import gSelect from './vue-g-select.vue';
 import gAutocomplete from './vue-g-autocomplete.vue';
+import _ from 'lodash';
 
 export {
     gSelect,
     gAutocomplete
+};
+
+const defaultOptions = {
+
 };
 
 export function install (Vue, options = {}) {
@@ -22,7 +27,7 @@ export function install (Vue, options = {}) {
 	install.installed = true;
 
 	const finalOptions = {};
-	merge(finalOptions, defaultOptions, options);
+	_.extend(finalOptions, defaultOptions, options);
 
 	plugin.options = finalOptions;
 
