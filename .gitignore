@@ -11,3 +11,5 @@ androidClient/
 ssl
 fabfile.py
 yarn.lock
+dist
+
