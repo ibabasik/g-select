@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const { VueLoaderPlugin } = require('vue-loader');
 
 var folder = 'public';
 
@@ -18,7 +19,8 @@ module.exports = {
     plugins: [
         new webpack.LoaderOptionsPlugin({
             minimize: true
-        })
+        }),
+	    new VueLoaderPlugin()
     ],
     module: {
         rules: [
