@@ -1,6 +1,6 @@
 {
   "name": "vue-g-select",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "vue 2 component for \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[Cselect component",
   "main": "/dist/vue-g-select.js",
   "scripts": {
