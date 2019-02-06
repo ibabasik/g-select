@@ -5,7 +5,7 @@
 
 ### Из репозитория:
 ```
-    npm install --save-dev git+https://git@gitlab.grcc.ru:gvz45/vue-g-select.git
+    npm install --save-dev git+https://github.com/ibabasik/g-select.git
 ```
 
 ### Подключение

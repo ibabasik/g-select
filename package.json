@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.grcc.ru:gvz45/vue-g-select.git"
+    "url": "https://github.com/ibabasik/g-select.git"
   },
   "keywords": [
     "vue",
@@ -17,18 +17,18 @@
     "comonent",
     "select"
   ],
-  "author": "Gvz",
-  "license": "ISC",
+  "author": "ibabasik@yandex.ru",
+  "license": "Apache-2.0",
   "dependencies": {
-    "autoprefixer": "^9.4.7",
-    "babel-loader": "^8.0.5",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
+    "autoprefixer": "^9.4.7",
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
     "css-loader": "^2.1.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "htmlclean": "^3.0.2",
