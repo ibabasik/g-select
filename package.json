@@ -5,7 +5,6 @@
   "main": "/dist/vue-g-select.js",
   "scripts": {
     "webpack": "webpack --watch --color --progress",
-    "prepublish": "yarn run build",
     "build": "webpack --mode production --config webpack.config.js"
   },
   "repository": {
