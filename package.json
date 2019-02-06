@@ -1,6 +1,6 @@
 {
   "name": "vue-g-select",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "description": "vue 2 component for \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[Cselect component",
   "main": "/dist/vue-g-select.js",
   "scripts": {
@@ -23,7 +23,9 @@
   "dependencies": {
     "lodash": "^4.17.4"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "autoprefixer": "^9.4.7",
     "@babel/cli": "^7.2.3",
