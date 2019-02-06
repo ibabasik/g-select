@@ -5,6 +5,7 @@
   "main": "/dist/vue-g-select.js",
   "scripts": {
     "webpack": "webpack --watch --color --progress",
+    "prepublish": "yarn run build",
     "build": "webpack --mode production --config webpack.config.js"
   },
   "repository": {
@@ -22,6 +23,7 @@
   "dependencies": {
     "lodash": "^4.17.4"
   },
+  "files": ["dist"],
   "devDependencies": {
     "autoprefixer": "^9.4.7",
     "@babel/cli": "^7.2.3",
