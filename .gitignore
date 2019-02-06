@@ -1,0 +1,13 @@
+.idea
+.DS_Store
+androidClient
+node_modules
+records
+activities
+public/bower
+fileStore
+company-admin/bower_components
+androidClient/
+ssl
+fabfile.py
+yarn.lock

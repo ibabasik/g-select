@@ -1,0 +1,232 @@
+<HTML>
+<HEAD>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="dist/vue-g-select.js"></script>
+</HEAD>
+<BODY>
+    <style>
+        body,html{
+            margin: 0;
+            height: 100%;
+            background: rgba(245, 245, 245, 0.3);
+        }
+
+        .example{
+            margin: 20px;
+            border-bottom: 1px solid gray;
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+        }
+
+        .example .g-select{
+            width: 400px;
+            margin: 10px 0;
+        }
+
+        .type{
+            padding: 1px 4px 2px 4px;
+            border-radius: 2px;
+        }
+
+        .val{
+            margin: 10px 0 20px 5px;
+        }
+
+        pre{
+            border: 1px solid lightgrey;
+            padding: 5px;
+            background: #e4e4e4;
+        }
+
+        .electric{ background:yellow}
+        .grass{ background:green}
+        .fire{ background:orange}
+        .water{ background:lightskyblue}
+        .normal{ background:gray}
+        .fairy{ background:pink}
+        .flying{ background:lightcyan}
+        .psychic{ background:violet}
+
+    </style>
+
+<div id="root">
+
+    <div class="example">
+        <h3>Objects</h3>
+        <pre>
+pokemons =[
+    {id:1, name:'Pikachu',type:'electric'},
+    {id:2, name:'Bulbasaur',type:'grass'},
+    {id:3, name:'Charmander',type:'fire'},
+    {id:4, name:'Squirtle',type:'water'},
+    {id:5, name:'Eevee',type:'normal'},
+    {id:6, name:'Jigglypuff',type:'fairy'},
+    {id:7, name:'Zubat',type:'flying'},
+    {id:8, name:'Pidgey',type:'flying'},
+    {id:9, name:'Rattata',type:'normal'},
+    {id:10, name:'Drowzee',type:'psychic'},
+    {id:11, name:'Paras',type:'grass'}
+]
+        </pre>
+        <pre>&lt;g-select :options=&quot;pokemons&quot; v-model=&quot;iChooseObjects&quot; :add-null-value=&quot;true&quot;{{bindId2 ? ' :bind-id="true"' : ''}}&gt;&lt;/g-select&gt;</pre>
+        <g-autocomplete :options="pokemons" :bind-id="bindId2" v-model="iChooseObjects" @textchanged="iChooseText=$event" :text="text" :disabled="bindId5">
+            <template slot="item-template" scope="props">
+                <div> <b>{{ props.item.name }}</b> <span class="type" :class="props.item.type">({{props.item.type}})</span></div>
+            </template>
+        </g-autocomplete>
+        <input type="checkbox" v-model="bindId2">bind id</input>
+        <input type="checkbox" v-model="bindId5">disabled</input>
+
+        <button @click="text='test'">set text='test'</button>
+        <button @click="iChooseObjects=3">set iChooseObjects=3</button>
+
+        <div class="val">iChooseObjects = <b>{{iChooseObjects || 'null'}}</b></div>
+        <div class="val">iChooseText = <b>{{iChooseText}}</b></div>
+
+    </div>
+
+
+    <div class="example">
+        <h3>Populate</h3>
+
+        <g-autocomplete :options="populatedPokemons" v-model="iChoosePopulate" @textchanged="iChoosePopulateCurrentText = $event" :populate = "populatePokemons">
+            <template slot="item-template" scope="props">
+                <div> <b>{{ props.item.name }}</b> <span class="type" :class="props.item.type">({{props.item.type}})</span></div>
+            </template>
+        </g-autocomplete>
+
+
+        <div class="val">iChooseObjects = <b>{{iChoosePopulate || 'null'}}</b></div>
+        <div class="val">iChooseText = <b>{{iChoosePopulateText}}</b></div>
+
+    </div>
+
+    <div class="example">
+        <h3>Objects</h3>
+
+        <g-autocomplete id="region"
+                        placeholder="Выберите регион..."
+                        :options="delayedPokemons"
+                        :bind-id="true"
+                        id-path="id"
+                        text-path="name"
+                        v-model="val1"
+                        @textchanged="val2 = ((val1==null)? $event : null)"
+                        @input="val2 = ($event == null ? val2 : null)  ">
+        </g-autocomplete>
+
+        {{delayedPokemons.length}}
+
+        val: {{val1}}
+        text: {{val2}}
+    </div>
+
+
+
+</div>
+<script type="text/javascript">
+
+    var s = new Vue({
+        el:'#root',
+        components:{
+            'gAutocomplete':VueGSelect.vueGAutocomplete.default
+        },
+        data:{
+            bindId1:false,
+            bindId2:true,
+            bindId3:true,
+            bindId4:false,
+            bindId5:false,
+            disabled1:false,
+            iChooseSimple:null,
+            iChooseObjects:5,
+            iChooseTemplate:null,
+            iChoosePopulate:{ id:3, name:'some pokemon'},
+            delayedPokemons:[],
+            iChoosePopulateText:null,
+            iChoosePopulateCurrentText:null,
+            iChooseText:'',
+            iChooseId:5,
+            iChooseMultiple:[2,3,4],
+            iChooseExternal:null,
+            val1:null,
+            val2:null,
+            val3:null,
+            val4:null,
+            val5:null,
+            val6:null,
+            message:'hello world',
+            text:'start',
+            list:[],
+            pokemons:
+                [
+                    {id:1, name:'Pikachu',type:'electric'},
+                    {id:2, name:'Bulbasaur',type:'grass'},
+                    {id:3, name:'Charmander',type:'fire'},
+                    {id:4, name:'Squirtle',type:'water'},
+                    {id:5, name:'Eevee',type:'normal'},
+                    {id:6, name:'Jigglypuff',type:'fairy'},
+                    {id:7, name:'Zubat',type:'flying'},
+                    {id:8, name:'Pidgey',type:'flying'},
+                    {id:9, name:'Rattata',type:'normal'},
+                    {id:10, name:'Drowzee',type:'psychic'},
+                    {id:11, name:'Paras',type:'grass'}
+                ],
+            iChoose: null,
+            populatedPokemons: null,
+            iChooseValue: null
+        },
+        created:function () {
+            var self=this;
+            setTimeout(function () {
+                self.delayedPokemons = self.pokemons;
+            },10000);
+        },
+        methods:{
+            addToList:function () {
+                for(var i=0;i<this.pokemons.length;i++){
+                    this.list.push(this.pokemons[i]);
+                }
+            },
+            setSelected:function(val,obj){
+                this.iChoose=val;
+                this.iChooseValue = obj;
+            },
+            pokemonFilter:function(p,filter){
+                return {result: p.indexOf(filter)!=-1,order:p.indexOf(filter) };
+            },
+            getPokemons:function(filter){
+                self.lastFilter = filter;
+                setTimeout(function(){
+                    if (self.lastFilter == filter){
+                        this.filteredPokemons = _.filter(this.pokemons,function(p){
+                            return !filter || p.name.toLowerCase().indexOf(filter.toLowerCase())!=-1;
+                        });
+                    }
+                }.bind(this),3000);
+            },
+            filterByNameAndType:function (pokemon,filter) {
+                var r = new RegExp(filter,'gi');
+                return pokemon.name.match(r) || pokemon.type.match(r);
+            },
+            filterByNameAndTypeAndSortByName:function (pokemon,filter) {
+                var r = new RegExp(filter,'gi');
+                return {result: pokemon.name.match(r) || pokemon.type.match(r), order:pokemon.name}
+            },
+            populatePokemons:function (filter) {
+                var self = this;
+                setTimeout(function () {
+                    //if (self.iChoosePopulateText == filter){
+                        self.populatedPokemons = _.filter(self.pokemons,function (p) {
+                            return p.type.toLowerCase().startsWith(filter.toLowerCase());
+                        })
+                    //}
+                }, 500)
+
+            }
+
+        }
+    })
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,270 @@
+<HTML>
+<HEAD>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="dist/vue-g-select.js"></script>
+</HEAD>
+<BODY>
+    <style>
+        body,html{
+            margin: 0;
+            height: 100%;
+            background: rgba(245, 245, 245, 0.3);
+        }
+
+        .example{
+            margin: 20px;
+            border-bottom: 1px solid gray;
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+        }
+
+        .example .g-select{
+            width: 400px;
+            margin: 10px 0;
+        }
+
+        .type{
+            padding: 1px 4px 2px 4px;
+            border-radius: 2px;
+        }
+
+        .val{
+            margin: 10px 0 20px 5px;
+        }
+
+        pre{
+            border: 1px solid lightgrey;
+            padding: 5px;
+            background: #e4e4e4;
+        }
+
+        .electric{ background:yellow}
+        .grass{ background:green}
+        .fire{ background:orange}
+        .water{ background:lightskyblue}
+        .normal{ background:gray}
+        .fairy{ background:pink}
+        .flying{ background:lightcyan}
+        .psychic{ background:violet}
+
+    </style>
+
+<div id="root">
+
+
+    <div class="example">
+        <h3>Simple</h3>
+        <pre>&lt;g-select :options=&quot;[0,1,2,3]&quot; v-model=&quot;iChooseSimple&quot;&gt;&lt;/g-select&gt;</pre>
+        <g-select :options="[0,1,2,3]" v-model="iChooseSimple"></g-select>
+        <div class="val">iChooseSimple = <b>{{iChooseSimple!==null? iChooseSimple : 'null'}} </b></div>
+    </div>
+
+    <div class="example">
+        <h3>Objects + add null value</h3>
+        <pre>
+pokemons =[
+    {id:1, name:'Pikachu',type:'electric'},
+    {id:2, name:'Bulbasaur',type:'grass'},
+    {id:3, name:'Charmander',type:'fire'},
+    {id:4, name:'Squirtle',type:'water'},
+    {id:5, name:'Eevee',type:'normal'},
+    {id:6, name:'Jigglypuff',type:'fairy'},
+    {id:7, name:'Zubat',type:'flying'},
+    {id:8, name:'Pidgey',type:'flying'},
+    {id:9, name:'Rattata',type:'normal'},
+    {id:10, name:'Drowzee',type:'psychic'},
+    {id:11, name:'Paras',type:'grass'}
+]
+        </pre>
+        <pre>&lt;g-select :options=&quot;pokemons&quot; v-model=&quot;iChooseObjects&quot; :add-null-value=&quot;true&quot;{{bindId2 ? ' :bind-id="true"' : ''}}&gt;&lt;/g-select&gt;</pre>
+        <g-select :options="pokemons" :bind-id="bindId2" v-model="iChooseObjects" :add-null-value="true"></g-select>
+        <input type="checkbox" v-model="bindId2">bind id</input>
+        <div class="val">iChooseObjects = <b>{{iChooseObjects || 'null'}}</b></div>
+    </div>
+
+
+    <div class="example">
+        <h3>Multiple selection</h3>
+        <pre>&lt;g-select :options=&quot;pokemons&quot; :multiple=&quot;true&quot; v-model=&quot;iChooseMultiple&quot;{{bindId3 ? ' :bind-id="true"' : ''}}&gt;&lt;/g-select&gt;</pre>
+        <g-select :options="pokemons" :multiple="true" :bind-id="bindId3" v-model="iChooseMultiple"></g-select>
+        <input type="checkbox" v-model="bindId3">bind id</input>
+        <div class="val">iChooseMultiple = {{iChooseMultiple || 'null'}}</div>
+    </div>
+
+    <div class="example">
+        <h3>External modification</h3>
+        <pre>&lt;g-select :options=&quot;pokemons&quot; id-path=&quot;id&quot; v-model=&quot;iChooseExternal&quot;{{bindId4 ? ' :bind-id="true"' : ''}}{{bindId5 ? ' :multiple="true"' : ''}}{{disabled1 ? ' :disabled="true"':''}}&gt;&lt;/g-select&gt;</pre>
+        <g-select :options="pokemons" :bind-id="bindId4" :multiple="bindId5" id-path="id" v-model="iChooseExternal" :disabled="disabled1" ></g-select>
+        <input type="checkbox" v-model="bindId5">multiple</input>
+        <input type="checkbox" v-model="bindId4">bind id</input>
+        <input type="checkbox" v-model="disabled1">disabled</input>
+        <input type="checkbox" v-model="useFilter">use filter</input>
+        <div>
+            <button v-on:click="iChooseExternal=2">set iChooseExternal = 2</button>
+            <button v-on:click="iChooseExternal=null">set iChooseExternal = null</button>
+            <button v-on:click="iChooseExternal={id:5}">set iChooseExternal = {id:5}</button>
+            <button v-on:click="iChooseExternal=pokemons[6]">set iChooseExternal = pokemons[6]</button>
+            <button v-on:click="iChooseExternal=[null]">set iChooseExternal = [null]</button>
+            <button v-on:click="iChooseExternal=[pokemons[1], 5, pokemons[3]]">set iChooseExternal = [pokemons[1], 5, pokemons[3]]</button>
+            <button v-on:click="iChooseExternal=[3,5]">set iChooseExternal = [3,5]</button>
+            <button v-on:click="iChooseExternal={id:7}">set iChooseExternal = {id:7}</button>
+            <button v-on:click="iChooseExternal={noIdField: 'foo bar'}">set iChooseExternal = {noIdField: 'foo bar'}</button>
+        </div>
+
+        <div class="val">iChooseExternal = <b>{{iChooseExternal || 'null'}}</b></div>
+    </div>
+
+    <div class="example">
+        <h3>Use item template</h3>
+        <pre v-pre>&lt;g-select :options=&quot;pokemons&quot; v-model=&quot;iChooseTemplate&quot;&gt;
+    &lt;template slot=&quot;item-template&quot; scope=&quot;props&quot;&gt;
+        &lt;div&gt; &lt;b&gt;{{ props.item.name }}&lt;/b&gt; &lt;span class=&quot;type&quot; :class=&quot;props.item.type&quot;&gt;({{props.item.type}})&lt;/span&gt;&lt;/div&gt;
+    &lt;/template&gt;
+&lt;/g-select&gt;</pre>
+
+        <g-select :options="pokemons" v-model="iChooseTemplate">
+            <template slot="item-template" scope="props">
+                <div> <b>{{ props.item.name }}</b> <span class="type" :class="props.item.type">({{props.item.type}})</span></div>
+            </template>
+        </g-select>
+        <div>selected: {{iChooseTemplate}}</div>
+    </div>
+
+    <div class="example">
+        <h3>Use filter</h3>
+        <pre v-pre>&lt;g-select :options=&quot;pokemons&quot; :has-filter=&quot;true&quot;&gt;&lt;/g-select&gt;</pre>
+        <g-select :options="pokemons" :has-filter="true"></g-select>
+    </div>
+
+    <div class="example">
+        <h3>Use custom filter</h3>
+        <pre v-pre>
+methods:{
+    ...
+    filterByNameAndType:function (pokemon,filter) {
+        var r = new RegExp(filter,'gi');
+        return pokemon.name.match(r) || pokemon.type.match(r);
+    }
+    ...
+}</pre>
+        <pre v-pre>&lt;g-select :options=&quot;pokemons&quot; :has-filter=&quot;true&quot; :custom-filter=&quot;filterByNameAndType&quot;&gt;
+    &lt;template slot=&quot;item-template&quot; scope=&quot;props&quot;&gt;
+        &lt;div&gt; &lt;b&gt;{{ props.item.name }}&lt;/b&gt; &lt;span class=&quot;type&quot; :class=&quot;props.item.type&quot;&gt;({{props.item.type}})&lt;/span&gt;&lt;/div&gt;
+    &lt;/template&gt;
+&lt;/g-select&gt;</pre>
+
+        <g-select :options="pokemons" :has-filter="true" :custom-filter="filterByNameAndType">
+            <template slot="item-template" scope="props">
+                <div> <b>{{ props.item.name }}</b> <span class="type" :class="props.item.type">({{props.item.type}})</span></div>
+            </template>
+        </g-select>
+
+    </div>
+
+    <div class="example">
+        <h3>Use custom filter with sort</h3>
+        <pre v-pre>
+methods:{
+    ...
+    filterByNameAndTypeAndSortByName:function (pokemon,filter) {
+        var r = new RegExp(filter,'gi');
+        return {
+            result: pokemon.name.match(r) || pokemon.type.match(r),
+            order:pokemon.name
+        };
+    }
+    ...
+}</pre>
+        <pre v-pre>&lt;g-select :options=&quot;pokemons&quot; :has-filter=&quot;true&quot; :custom-filter=&quot;filterByNameAndTypeAndSortByName&quot;&gt;
+    &lt;template slot=&quot;item-template&quot; scope=&quot;props&quot;&gt;
+        &lt;div&gt; &lt;b&gt;{{ props.item.name }}&lt;/b&gt; &lt;span class=&quot;type&quot; :class=&quot;props.item.type&quot;&gt;({{props.item.type}})&lt;/span&gt;&lt;/div&gt;
+    &lt;/template&gt;
+&lt;/g-select&gt;</pre>
+
+        <g-select :options="pokemons" :has-filter="true" :custom-filter="filterByNameAndTypeAndSortByName">
+            <template slot="item-template" scope="props">
+                <div> <b>{{ props.item.name }}</b> <span class="type" :class="props.item.type">({{props.item.type}})</span></div>
+            </template>
+        </g-select>
+
+    </div>
+    <div style="height: 300px"></div>
+
+</div>
+<script type="text/javascript">
+
+    var s = new Vue({
+        el:'#root',
+        components:{
+            'gSelect':VueGSelect.vueGSelect.default
+        },
+        data:{
+            bindId1:false,
+            bindId2:false,
+            bindId3:true,
+            bindId4:false,
+            bindId5:false,
+            disabled1:false,
+            iChooseSimple:null,
+            iChooseObjects:null,
+            iChooseTemplate:null,
+            iChooseId:5,
+            iChooseMultiple:[2,3,4],
+            iChooseExternal:null,
+            message:'hello world',
+            list:[],
+	        useFilter: false,
+            pokemons:
+                [
+                    {id:1, name:'Pikachu',type:'electric'},
+                    {id:2, name:'Bulbasaur',type:'grass'},
+                    {id:3, name:'Charmander',type:'fire'},
+                    {id:4, name:'Squirtle',type:'water'},
+                    {id:5, name:'Eevee',type:'normal'},
+                    {id:6, name:'Jigglypuff',type:'fairy'},
+                    {id:7, name:'Zubat',type:'flying'},
+                    {id:8, name:'Pidgey',type:'flying'},
+                    {id:9, name:'Rattata',type:'normal'},
+                    {id:10, name:'Drowzee',type:'psychic'},
+                    {id:11, name:'Paras',type:'grass'}
+                ],
+            iChoose: null,
+            iChooseValue: null
+        },
+        methods:{
+            addToList:function () {
+                for(var i=0;i<this.pokemons.length;i++){
+                    this.list.push(this.pokemons[i]);
+                }
+            },
+            setSelected:function(val,obj){
+                this.iChoose=val;
+                this.iChooseValue = obj;
+            },
+            pokemonFilter:function(p,filter){
+                return {result: p.indexOf(filter)!=-1,order:p.indexOf(filter) };
+            },
+            getPokemons:function(filter){
+                self.lastFilter = filter;
+                setTimeout(function(){
+                    if (self.lastFilter == filter){
+                        this.filteredPokemons = _.filter(this.pokemons,function(p){
+                            return !filter || p.name.toLowerCase().indexOf(filter.toLowerCase())!=-1;
+                        });
+                    }
+                }.bind(this),3000);
+            },
+            filterByNameAndType:function (pokemon,filter) {
+                var r = new RegExp(filter,'gi');
+                return pokemon.name.match(r) || pokemon.type.match(r);
+            },
+            filterByNameAndTypeAndSortByName:function (pokemon,filter) {
+                var r = new RegExp(filter,'gi');
+                return {result: pokemon.name.match(r) || pokemon.type.match(r), order:pokemon.name}
+            }
+
+        }
+    })
+</script>
+</BODY>
+</HTML>

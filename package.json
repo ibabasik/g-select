@@ -1,0 +1,46 @@
+{
+  "name": "vue-g-select",
+  "version": "1.0.32",
+  "description": "vue 2 component for \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[Cselect component",
+  "main": "/dist/vue-g-select.js",
+  "scripts": {
+    "webpack": "webpack --watch --color --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.grcc.ru:gvz45/vue-g-select.git"
+  },
+  "keywords": [
+    "vue",
+    "vue2",
+    "comonent",
+    "select"
+  ],
+  "author": "Gvz",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.1.21",
+    "babel-loader": "^6.1.0",
+    "babel-plugin-transform-runtime": "^6.1.18",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-runtime": "^5.8.0",
+    "css-loader": "^0.21.0",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "htmlclean": "^3.0.2",
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.13.0",
+    "stylus-loader": "^1.4.0",
+    "vue-hot-reload-api": "^1.2.0",
+    "vue-html-loader": "^1.0.0",
+    "vue-loader": "^11.3.4",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^1.12.0",
+    "vue": "^2.1.10",
+    "htmlclean-loader": "^1.0.6",
+    "vue-template-compiler": "^2.2.6"
+  }
+}

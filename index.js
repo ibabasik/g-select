@@ -1,0 +1,1 @@
+module.exports = require('./dist/vue-g-select.js');
