@@ -12,9 +12,12 @@
                 </div>
                 <template v-if="multiple">
                     <div class="multiple-selected-item" v-for="value in rawSelectedValue">
-                        <slot name="item-template" :item="value" class="multiple-selected-value">
-                            {{isComplex&&textPath&&value?value[textPath]:value}}
-                        </slot>
+                        <div class="multiple-selected-value">
+                            <slot name="item-template" :item="value">
+                                {{isComplex&&textPath&&value?value[textPath]:value}}
+                            </slot>
+                        </div>
+
                         <div class="remove-button" v-on:click="removeValue(value,$event)">
                             <svg viewbox="0 0 18 18" class="icon">
                                 <path class="close-x" d="M 5,5 L 13,13 M 5,13 L 13,5" />
@@ -163,7 +166,7 @@
                 } else {
                     if (this.isComplex && this.textPath){
                         return _.filter(this.allOptions,function(el){
-                            return el && el[this.textPath].toLowerCase().indexOf(tfilter)!=-1;
+                            return el && (el[this.textPath]).toLowerCase().indexOf(tfilter)!=-1;
                         }.bind(this));
                     } else {
                         return _.filter(this.allOptions,function(el){
@@ -477,7 +480,7 @@
     }
 
 </script>
-<style lang="sass">
+<style lang="sass" type="text/scss">
 .g-select{
     position:relative;
 
@@ -499,6 +502,10 @@
         .placeholder{
             color: gray;
             margin: 2px 5px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            padding: 0 10px;
         }
 
         .selected-value-container{
