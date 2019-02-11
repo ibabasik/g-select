@@ -6,7 +6,8 @@
   "scripts": {
     "webpack": "webpack --watch --color --progress",
     "prepublish": "yarn run build",
-    "build": "webpack --mode production --config webpack.config.js"
+    "build": "webpack --mode production --config webpack.config.js",
+    "examples": "webpack --mode production --config webpack.config.example.js --watch"
   },
   "repository": {
     "type": "git",

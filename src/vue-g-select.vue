@@ -47,9 +47,7 @@
             <div class="filter-container">
                 <input v-if="hasFilter" ref="filter" type="text" v-model="filter"
                        v-on:keydown.down.stop="focusItem(1)" v-on:keydown.up.stop="focusItem(-1)"
-                       v-on:keydown.enter.stop="selectOption(filteredOptions[focusedIndex])"
-
-                >
+                       v-on:keydown.enter.stop="selectOption(filteredOptions[focusedIndex])">
                     <!--v-on:blur="lostFocus"-->
                 </input>
                 <div class="populating" v-if="populate"><span v-if="isPopulating">{{populateText}}</span></div>
@@ -346,10 +344,11 @@
             selectOption:function(option){
                 if (option===undefined) return;
                 if (this.multiple){
-                    if (this.rawSelectedValue.indexOf(option)==-1){
+                	var idx = this.rawSelectedValue.indexOf(option);
+                    if (idx === -1){
                         this.rawSelectedValue.push(option);
                     } else {
-                        _.pull(this.rawSelectedValue,option);
+                        this.rawSelectedValue.splice(idx, 1);
                     }
                 } else {
                     this.rawSelectedValue = option;
@@ -440,27 +439,27 @@
                 }
             },
             handleKeyDown:function (event) {
-                if (event.code == 'Space' && event.srcElement == this.$refs.filter){
+                if (event.code === 'Space' && event.srcElement === this.$refs.filter){
                     return;
                 }
-                if (!this.dropdownOpened && event.code!='Tab'){
+                if (!this.dropdownOpened && event.code !== 'Tab'){
                     this.toggleDropdown();
-                } else if (event.code=="Space"||event.code=="Enter"){
+                } else if (event.code === "Space" || event.code === "Enter"){
                     if (this.focusedIndex != null && this.filteredOptions[this.focusedIndex]!==undefined){
                         this.selectOption(this.filteredOptions[this.focusedIndex]);
                     } else {
                         this.dropdownOpened = false;
                     }
                 }
-                if (event.code=="ArrowDown"){
+                if (event.code === "ArrowDown"){
                     this.focusItem(1);
                     event.preventDefault();
                 }
-                if (event.code=="ArrowUp"){
+                if (event.code === "ArrowUp"){
                     this.focusItem(-1);
                     event.preventDefault();
                 }
-                if (event.code == "Space"){
+                if (event.code === "Space"){
                     event.preventDefault();
                 }
             },

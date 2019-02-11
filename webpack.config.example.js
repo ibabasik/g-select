@@ -7,14 +7,12 @@ var folder = 'public';
 var isDev = true;
 
 module.exports = {
-    entry: `./src/index.js`,
+    entry: `./examples/example.js`,
 
     output: {
-        path: path.resolve(__dirname, './dist/'),
-        publicPath: '/dist/',
-        filename: 'vue-g-select.js',
-        library: 'VueGSelect',
-        libraryTarget: 'umd'
+        path: path.resolve(__dirname, './examples/'),
+        publicPath: '/examples/',
+        filename: 'example.build.js'
     },
     plugins: [
         new webpack.LoaderOptionsPlugin({
@@ -90,15 +88,12 @@ module.exports = {
         historyApiFallback: true,
         noInfo: true
     },
-    devtool: '#eval',//isDev ? '#eval' : '#source-map',
+    devtool: isDev ? '#eval' : '#source-map',
     cache: true,
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.js'
         }
-    },
-    externals: {
-        lodash: 'lodash'
     }
 };
 

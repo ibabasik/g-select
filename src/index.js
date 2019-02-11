@@ -29,6 +29,7 @@ export function install (Vue, options = {}) {
 	const finalOptions = {};
 	_.extend(finalOptions, defaultOptions, options);
 
+
 	plugin.options = finalOptions;
 
 	Vue.component('g-select', gSelect);
