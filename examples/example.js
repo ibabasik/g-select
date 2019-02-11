@@ -38,9 +38,12 @@ var s = new Vue({
 		iChoose: null,
 		iChooseValue: null
 	},
+	mounted(){
+
+	},
 	methods:{
 		addToList:function () {
-			for(var i=0;i<this.pokemons.length;i++){
+			for(var i=0; i<this.pokemons.length; i++){
 				this.list.push(this.pokemons[i]);
 			}
 		},
@@ -66,9 +69,9 @@ var s = new Vue({
 			return pokemon.name.match(r) || pokemon.type.match(r);
 		},
 		filterByNameAndTypeAndSortByName:function (pokemon,filter) {
-			var r = new RegExp(filter,'gi');
-			return {result: pokemon.name.match(r) || pokemon.type.match(r), order:pokemon.name}
+			var r = new RegExp(filter, 'gi');
+			return {result: pokemon.name.match(r) || pokemon.type.match(r), order: pokemon.name}
 		}
 
 	}
-})
+});
