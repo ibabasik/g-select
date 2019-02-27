@@ -18,6 +18,7 @@ var s = new Vue({
 		iChooseId:5,
 		iChooseMultiple:[2,3,4],
 		iChooseExternal:null,
+		iChooseTest: 5,
 		message:'hello world',
 		list:[],
 		useFilter: false,
@@ -52,14 +53,14 @@ var s = new Vue({
 			this.iChooseValue = obj;
 		},
 		pokemonFilter:function(p,filter){
-			return {result: p.indexOf(filter)!=-1,order:p.indexOf(filter) };
+			return {result: p.indexOf(filter) !== -1,order:p.indexOf(filter) };
 		},
 		getPokemons:function(filter){
 			self.lastFilter = filter;
 			setTimeout(function(){
-				if (self.lastFilter == filter){
+				if (self.lastFilter === filter){
 					this.filteredPokemons = _.filter(this.pokemons,function(p){
-						return !filter || p.name.toLowerCase().indexOf(filter.toLowerCase())!=-1;
+						return !filter || p.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
 					});
 				}
 			}.bind(this),3000);

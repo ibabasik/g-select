@@ -116,7 +116,7 @@
             console.log('created');
             this.filter = this.text;
             this.setSelectedOptionType();
-            this.setSelectedOption();
+            this.setSelectedOption(true);
 
         },
 
@@ -226,7 +226,7 @@
         },
 
         methods:{
-            setSelectedOption:function(){
+            setSelectedOption:function(init){
 	            if (!this.options || !this.options.length){
 		            return;
 	            }
@@ -300,7 +300,7 @@
                     } else {
                         this.rawSelectedValue = null;
                     }
-                    shouldTriggerChange = this.selectedValue !== this.value;
+                    shouldTriggerChange = init || this.selectedValue !== this.value;
                 }
 
                 if (shouldTriggerChange){
