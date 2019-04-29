@@ -181,7 +181,7 @@
 				if (!this.allOptions || !this.allOptions.length) {
 					return false;
 				}
-				return _.isObject(_.find(this.allOptions));
+				return _.find(this.allOptions, _.isObject);
 			},
 			selectedValue: function () {
 				if (this.multiple && this.isComplex) {
@@ -283,23 +283,20 @@
 					if (_.isArray(valToSet) && valToSet.length) {
 						valToSet = valToSet[0];
 					}
-					if (this.isComplex && (_.isObject(valToSet) ^ !this.bindId)) {
+					if (this.isComplex){
+						if (_.isObject(valToSet) && this.bindId ){
+							valToSet = valToSet[this.idPath]
+						}
 						if (this.bindId) {
-							valToSet = valToSet[this.idPath];
-							if (valToSet === undefined) {
-								valToSet = null;
-							}
-						} else {
 							valToSet = (valToSet && _.find(this.allOptions, this.getIdPathQuery(valToSet))) || null;
 						}
 					}
 					if (valToSet === null || valToSet === undefined) {
 						this.rawSelectedValue = valToSet;
-					} else if (this.allOptions.indexOf(valToSet) !== -1) {
+					} else if (this.allOptions.indexOf(valToSet) !== -1) {//If selected object is same as in options
 						this.rawSelectedValue = valToSet;
-					} else if (this.isComplex) {
-						var id = this.bindId ? valToSet : valToSet[this.idPath];
-						this.rawSelectedValue = _.find(this.options, this.getIdPathQuery(id));
+					} else if (this.isComplex) {//If selected object has same id as some option
+						this.rawSelectedValue = _.find(this.options, this.getIdPathQuery(valToSet))
 					} else {
 						this.rawSelectedValue = null;
 					}
@@ -341,13 +338,14 @@
 						this.rawSelectedValue.push(oldVal);
 					}
 				} else {
+					const oldVal = this.rawSelectedValue;
 					var r = this.rawSelectedValue && this.rawSelectedValue[0];
 					if (r !== null || r !== undefined) {
 						this.rawSelectedValue = r;
 					} else {
 						this.rawSelectedValue = null;
 					}
-					if (r === this.rawSelectedValue){
+					if (oldVal === this.rawSelectedValue){
 						return;
 					}
 				}
@@ -449,6 +447,9 @@
 					return null;
 				} else {
 					var res = {};
+					if (_.isObject(value)){
+						value = value[this.idPath];
+					}
 					res[this.idPath] = value;
 					return res;
 				}
