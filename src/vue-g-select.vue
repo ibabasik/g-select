@@ -233,9 +233,6 @@
 
 		methods: {
 			setSelectedOption: function (init) {
-				if (!this.options || !this.options.length) {
-					return;
-				}
 
 				var valToSet = this.value === undefined ? null : this.value;
 				var shouldTriggerChange = false;
@@ -306,10 +303,10 @@
 					} else {
 						this.rawSelectedValue = null;
 					}
-					shouldTriggerChange = init || this.selectedValue !== this.value;
+					shouldTriggerChange = this.selectedValue !== this.value;
 				}
 
-				if (shouldTriggerChange) {
+				if (shouldTriggerChange && !init) {
 					this.$emit('input', this.selectedValue, this.rawSelectedValue);
 				}
 			},
@@ -333,10 +330,7 @@
 				});
 			},
 
-			setSelectedOptionType: function () {
-				if (!this.options || !this.options.length) {
-					return;
-				}
+			setSelectedOptionType: function (init) {
 				if (this.multiple) {
 					var oldVal = this.rawSelectedValue;
 					if (_.isArray(oldVal)) {
@@ -357,7 +351,10 @@
 						return;
 					}
 				}
-				this.$emit('input', this.selectedValue, this.rawSelectedValue);
+				if (!init){
+					this.$emit('input', this.selectedValue, this.rawSelectedValue);
+				}
+
 			},
 			selectOption: function (option) {
 				if (option === undefined) return;
